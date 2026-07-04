@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-export const UserForm = ({ handleAddUser, initialUserForm, userSelected, handleCloseForm }) => {
+export const UserForm = ({ handlerAddUser, initialUserForm, userSelected, handleCloseForm }) => {
 
     const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -35,7 +35,7 @@ export const UserForm = ({ handleAddUser, initialUserForm, userSelected, handleC
             });
         }
 
-        handleAddUser(userForm);
+        handlerAddUser(userForm);
         setUserForm(initialUserForm);
     }
 
@@ -51,9 +51,7 @@ export const UserForm = ({ handleAddUser, initialUserForm, userSelected, handleC
             {id === '' && <input type="password" name="password" className="form-control mb-2" placeholder="Password" value={password} onChange={ onInputChange } />}
             <input type="email" name="email" className="form-control mb-2" placeholder="Email" value={email} onChange={ onInputChange } />
             <button type="submit" className="btn btn-primary">{id ? 'Update User' : 'Add User'}</button>
-            <button type="button" className="btn btn-secondary ms-2" onClick={onCloseForm}>
-                Close
-            </button>
+            {!handleCloseForm || <button type="button" className="btn btn-secondary ms-2" onClick={ onCloseForm }>Cancel</button>}
         </form>
     )
 }

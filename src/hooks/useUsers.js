@@ -20,7 +20,7 @@ export const useUsers = () => {
     const [userSelected, setUserSelected] = useState(null);
     const [visibleForm, setVisibleForm] = useState(false);
 
-    const handleAddUser = (user) => {
+    const handlerAddUser = (user) => {
         const type = (user.id === '') ? 'ADD_USER' : 'UPDATE_USER';
 
         dispatch({ type, payload: user });
@@ -74,7 +74,7 @@ export const useUsers = () => {
         userSelected,
         initialUserForm,
         visibleForm,
-        handleAddUser,
+        handlerAddUser,
         handlerRemoveUser,
         handleSelectUser,
         handleOpenForm,

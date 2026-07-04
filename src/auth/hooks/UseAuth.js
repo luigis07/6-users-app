@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { loginReducer } from "../reducers/LoginReducer";
 import Swal from "sweetalert2";
 import { loginUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const initialLogin = sessionStorage.getItem('login') ? JSON.parse(sessionStorage.getItem('login')) : {
     isAuth: false,
@@ -11,13 +12,15 @@ const initialLogin = sessionStorage.getItem('login') ? JSON.parse(sessionStorage
 export const UseAuth = () => {
     const [ login, dispatch ] = useReducer(loginReducer, initialLogin);
 
+    const navigate = useNavigate();
+
     const handlerLogin = ({ username, password }) => {
         const isLogin = loginUser({ userLogin: { username, password } });
         if (isLogin) {
             const user = { username: 'admin' };
             dispatch({ type: 'LOGIN', payload: user });
             sessionStorage.setItem('login', JSON.stringify({isAuth: true, user}));
-
+            navigate('/users');
         } else {
             Swal.fire({icon: 'error', title: 'Error', text: 'Invalid username or password'});
         }
@@ -26,6 +29,7 @@ export const UseAuth = () => {
     const handlerLogout = () => {
         dispatch({ type: 'LOGOUT' });
         sessionStorage.removeItem('login');
+        navigate('/login');
     }
 
     return {
