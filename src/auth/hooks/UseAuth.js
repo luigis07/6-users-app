@@ -9,7 +9,7 @@ const initialLogin = sessionStorage.getItem('login') ? JSON.parse(sessionStorage
     user: undefined
 };
 
-export const UseAuth = () => {
+export const useAuth = () => {
     const [ login, dispatch ] = useReducer(loginReducer, initialLogin);
 
     const navigate = useNavigate();

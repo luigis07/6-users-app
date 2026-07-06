@@ -1,37 +1,31 @@
+import { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 import { UserForm } from "../components/UserForm"
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-export const RegisterPage = ( { users=[], handlerAddUser, initialUserForm } ) => {
-  
+export const RegisterPage = () => {
+
+    const { users = [], initialUserForm } = useContext(UserContext);
+
     const [userSelected, setUserSelected] = useState(initialUserForm);
 
     const { id } = useParams();
 
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if(id) {
-            const user = users.find(user => user.id == id) || initialUserForm;
+        if (id) {
+            const user = users.find(u => u.id == id) || initialUserForm;
             setUserSelected(user);
         }
-    }, [id]);
+    }, [id])
 
     return (
-    <div className="container mt-4">
-        <h4>{ userSelected.id > 0 ? 'Edit' : 'Register'} User</h4>
-        <div className="row">
-            <div className="col-12 col-md-6">
-                <UserForm
-                    userSelected={userSelected}
-                    handlerAddUser={(user) => {
-                        handlerAddUser(user);
-                        navigate("/users");
-                    }}
-                    initialUserForm={initialUserForm}
-                />
+        <div className="container my-4">
+            <h4>{ userSelected.id > 0 ? 'Editar' : 'Registrar'} Usuario</h4>
+            <div className="row">
+                <div className="col">
+                    <UserForm userSelected={userSelected} />
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }

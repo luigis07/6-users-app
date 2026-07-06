@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
+import { UserContext } from "../context/UserContext";
 
-export const UserForm = ({ handlerAddUser, initialUserForm, userSelected, handleCloseForm }) => {
+export const UserForm = ({ userSelected, handleCloseForm }) => {
+
+    const { initialUserForm, handlerAddUser } = useContext(UserContext);
 
     const [userForm, setUserForm] = useState(initialUserForm);
 

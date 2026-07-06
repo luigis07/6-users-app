@@ -1,6 +1,11 @@
+import { useContext } from "react"
 import { UserRow } from "./UserRow"
+import { UserContext } from "../context/UserContext"
 
-export const UserList = ( { users = [], handlerRemoveUser, handleSelectUser } ) => {
+export const UserList = () => {
+
+    const { users } = useContext(UserContext);
+
     return (
         <table className="table table-striped">
             <thead>
@@ -13,7 +18,7 @@ export const UserList = ( { users = [], handlerRemoveUser, handleSelectUser } ) 
             </thead>
             <tbody>
                 {users.map(user => (
-                    <UserRow key={user.id} {...user} handlerRemoveUser={handlerRemoveUser} handleSelectUser={handleSelectUser} />
+                    <UserRow key={user.id} {...user} />
                 ))}
             </tbody>
         </table>

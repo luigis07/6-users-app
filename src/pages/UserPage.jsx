@@ -1,31 +1,35 @@
+import { useContext } from "react";
 import { UserList } from "../components/UserList";
 import { UserModal } from "../components/UserModal";
+import { UserContext } from "../context/UserContext";
 
-export const UserPage = ( {
+export const UserPage = () => {
+
+    const {
         users,
-        userSelected,
-        initialUserForm,
         visibleForm,
-        handlerAddUser,
-        handlerRemoveUser,
-        handleSelectUser,
         handleOpenForm,
-        handleCloseForm
-    } ) => {
+    } = useContext(UserContext);
 
     return (
         <>
-            {!visibleForm || 
-                <UserModal handlerAddUser={handlerAddUser} initialUserForm={initialUserForm} userSelected={userSelected} handleCloseForm={handleCloseForm} />
-            }
-
-            <div className="container mt-5">
+            {!visibleForm ||
+                <UserModal />}
+            <div className="container my-4">
                 <h2>Users App</h2>
-
                 <div className="row">
-                    <div className="col-md-6">
-                        {!visibleForm && <button className="btn btn-primary mb-3" onClick={handleOpenForm}>Add User</button>}
-                        { users.length === 0 ? <div className="alert alert-warning">No users found</div> : <UserList users={users} handlerRemoveUser={handlerRemoveUser} handleSelectUser={handleSelectUser} /> }
+                    <div className="col">
+                        {visibleForm || <button
+                            className="btn btn-primary my-2"
+                            onClick={handleOpenForm}>
+                            Nuevo Usuario
+                        </button>}
+
+                        {
+                            users.length === 0
+                                ? <div className="alert alert-warning">No hay usuarios en el sistema!</div>
+                                : <UserList />
+                        }
                     </div>
                 </div>
             </div>
